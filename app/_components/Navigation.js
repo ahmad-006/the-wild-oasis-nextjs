@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export default function Navigation({ isMobile, onClose }) {
   return (
-    <nav className={isMobile ? "text-2xl" : "z-10 sm:text-xl text-base"}>
-      <ul className={isMobile ? "flex flex-col gap-6" : "flex flex-wrap sm:gap-16 gap-8 items-center"}>
+     <nav className={isMobile ? "text-2xl w-full" : "z-10 sm:text-xl text-base"}>
+       <ul className={isMobile ? "flex flex-col gap-6 items-center" : "flex flex-wrap sm:gap-16 gap-8 items-center"}>
         <li>
           <Link
             href="/cabins"

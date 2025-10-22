@@ -19,11 +19,11 @@ export default async function Page({ params }) {
   return (
     <div className="max-w-6xl mx-auto mt-8">
       <div className="grid md:grid-cols-[3fr_4fr] grid-cols-1 md:gap-20 gap-8 border border-primary-800 py-3 md:px-10 px-5 md:mb-24 mb-12">
-        <div className="relative md:scale-[1.15] md:-translate-x-3">
+        <div className="relative h-64 md:h-auto md:scale-[1.15] md:-translate-x-3 overflow-hidden">
           <Image
             src={image}
             fill
-            className="object-cover"
+            className="object-cover block z-10"
             alt={`Cabin ${name}`}
           />
         </div>

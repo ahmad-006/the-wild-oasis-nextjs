@@ -7,12 +7,12 @@ function CabinCard({ cabin }) {
 
   return (
     <div className="flex md:flex-row flex-col border-primary-800 border">
-      <div className="flex-1 relative h-48 md:h-auto">
+      <div className="md:flex-1 relative h-48 md:h-auto overflow-hidden"> {/* Re-added flex-1 for md and up */}
         <Image
           src={image}
           fill
           alt={`Cabin ${name}`}
-          className="object-cover md:border-r border-b border-primary-800"
+          className="object-cover md:border-r border-b border-primary-800 block z-10"
         />
       </div>
 

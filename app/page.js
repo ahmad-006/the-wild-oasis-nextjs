@@ -4,7 +4,7 @@ import bgImage from "@/public/bg.png";
 
 export default function Page() {
   return (
-    <main className="mt-16 md:mt-24">
+    <main className="pt-16 md:pt-24">
       <Image
         src={bgImage}
         fill
