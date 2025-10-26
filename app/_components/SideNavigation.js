@@ -1,12 +1,7 @@
-import {
-  CalendarDaysIcon,
-  HomeIcon,
-  UserIcon,
-} from "@heroicons/react/24/solid";
-
-import SignOutButton from "./SignOutButton";
+import { CalendarDaysIcon, HomeIcon, UserIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { usePathname } from "next/navigation"; // Import usePathname
+import SignOutButton from "./SignOutButton";
 
 const navLinks = [
   {

@@ -9,6 +9,7 @@ export default function Counter({ users }) {
     <div className="p-4 border border-primary-800">
       <p className="mb-2">There are {users.length} users</p>
       <button
+        type='button'
         className="px-4 py-2 bg-accent-500 text-primary-800"
         onClick={() => setCount((c) => c + 1)}
       >
