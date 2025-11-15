@@ -59,7 +59,49 @@
 /* For data picker */
 .rdp {
   --rdp-cell-size: 32px;
-  --rdp-accent-color: var(--color-accent-500);
+  --rdp-accent-color: #0000ff; /* Override accent color for selected dates to royal blue */
   --rdp-background-color: var(--color-accent-600);
   margin: 0;
+}
+
+.rdp-day_selected,
+.rdp-day_selected:hover,
+.rdp-day_selected:focus,
+.rdp-day[aria-selected="true"] {
+  background: #0000ff !important; /* Royal blue */
+  background-color: #0000ff !important; /* Ensure background-color is also set */
+  color: var(--color-primary-50) !important; /* White text for contrast */
+}
+
+.rdp-day_selected:not(.rdp-day_outside) {
+  background: #0000ff !important; /* Royal blue */
+  background-color: #0000ff !important; /* Ensure background-color is also set */
+  color: var(--color-primary-50) !important; /* White text for contrast */
+}
+
+.rdp-day_selected .rdp-day_selection_span {
+  background: #0000ff !important; /* Royal blue */
+  background-color: #0000ff !important; /* Ensure background-color is also set */
+  color: var(--color-primary-50) !important; /* White text for contrast */
+}
+
+.rdp-day_range_start,
+.rdp-day_range_end {
+  border-radius: 50% !important;
+}
+
+.rdp-dropdown {
+  background-color: var(--color-primary-500) !important; /* Royal blue */
+  color: var(--color-primary-50) !important; /* Light text for contrast */
+}
+
+.rdp-dropdown_month,
+.rdp-dropdown_year {
+  background-color: var(--color-primary-500) !important; /* Royal blue */
+  color: var(--color-primary-50) !important; /* Light text for contrast */
+}
+
+.rdp-dropdown_month svg,
+.rdp-dropdown_year svg {
+  color: var(--color-primary-50) !important; /* Light arrow for contrast */
 }
