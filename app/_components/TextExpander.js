@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 
 function TextExpander({ children }) {
-  const [isExpanded, setIsExpanded] = useState(children.length > 40);
+  const [isExpanded, setIsExpanded] = useState(false);
   const displayText = isExpanded
     ? children
-    : children.split(" ").slice(0, 40).join(" ") + "...";
+    : children.split(' ').slice(0, 40).join(' ') + '...';
 
   return (
     <span>
-      {displayText}{" "}
+      {displayText}{' '}
       <button
         className="text-primary-700 border-b border-primary-700 leading-3 pb-1"
         onClick={() => setIsExpanded(!isExpanded)}
       >
-        {children.length > 40 && isExpanded ? "Show less" : "Show more"}
+        {isExpanded ? 'Show less' : 'Show more'}
       </button>
     </span>
   );
