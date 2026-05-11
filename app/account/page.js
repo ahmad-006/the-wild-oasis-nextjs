@@ -1,7 +1,16 @@
+import { auth } from '../_lib/auth';
+
 export const metadata = {
-  title: "Account",
+  title: 'Guest area',
 };
 
-export default function Page() {
-  return <h1 className="text-4xl md:text-5xl">Hello, Ahmad</h1>;
+export default async function Page() {
+  const session = await auth();
+  const userName = session?.user?.name.split(' ')[0];
+
+  return (
+    <h2 className="font-semibold text-2xl text-accent-400 mb-7">
+      Welcome, {userName}
+    </h2>
+  );
 }

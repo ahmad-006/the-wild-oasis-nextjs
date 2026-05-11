@@ -1,24 +1,25 @@
-import ReservationCard from "@/app/_components/ReservationCard";
+import Link from 'link';
+import ReservationCard from '../../_components/ReservationCard';
+import { auth } from '@/app/_lib/auth';
+import { getBookings } from '@/app/_lib/data-service';
 
-export const metadata = {
-  title: "Reservations",
-};
-export default function Page() {
-  // CHANGE
-  const bookings = [];
+export default async function Page() {
+  const session = await auth();
+  console.log(session);
+  const bookings = await getBookings(session.user.guestId);
 
   return (
     <div>
-      <h2 className="font-semibold md:text-2xl text-xl text-accent-400 mb-7">
+      <h2 className="font-semibold text-2xl text-accent-400 mb-7">
         Your reservations
       </h2>
 
       {bookings.length === 0 ? (
-        <p className="md:text-lg text-base">
-          You have no reservations yet. Check out our{" "}
-          <a className="underline text-accent-500" href="/cabins">
+        <p className="text-lg">
+          You have no reservations yet. Check out our{' '}
+          <Link className="underline text-accent-500" href="/cabins">
             luxury cabins &rarr;
-          </a>
+          </Link>
         </p>
       ) : (
         <ul className="space-y-6">
