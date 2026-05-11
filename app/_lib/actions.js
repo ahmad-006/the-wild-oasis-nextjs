@@ -66,7 +66,7 @@ export async function updateBooking(formData) {
   };
 
   const { error } = await supabase
-    .from('guests')
+    .from('bookings')
     .update(updatedFields)
     .eq('id', bookingId)
     .eq('guestId', session.user.guestId)
