@@ -1,34 +1,33 @@
-import Header from "@/app/_components/Header";
-import "./globals.css";
-import { Josefin_Sans } from "next/font/google";
-import { ReservationContextProvider } from "./_components/ReservationContext";
+import { Josefin_Sans } from 'next/font/google';
+import './globals.css';
 
-const josephins = Josefin_Sans({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  display: "swap",
+import Header from './_components/Header';
+import { ReservationProvider } from './_components/ReservationContext';
+
+const josephineSans = Josefin_Sans({
+  display: 'swap',
+  subsets: ['latin'],
 });
 
 export const metadata = {
   title: {
-    default: "The Wild Oasis",
-    template: "%s | The Wild Oasis",
+    template: '%s | The Wild Oasis',
+    default: 'Welcome | The Wild Oasis',
   },
-  description: `Luxurious cabin hotels, located in the heart of the italian Dolomites , sorrounded by beautiful mountains and dark forests `,
+  description:
+    'Luxurious cabin hotel, located in the heart of the Italian Dolomites, surrounded by beautiful mountains and dark forests',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${josephins.className} antialiased text-primary-100 bg-primary-950 min-h-screen flex flex-col  `}
+        className={`${josephineSans.className} antialiased bg-primary-950 text-primary-100 min-h-screen flex flex-col relative`}
       >
         <Header />
-        <div className="flex-1 sm:px-8 px-4 sm:py-12 py-6 grid ">
-          <main className="max-w-7xl mx-auto w-full">
-            <ReservationContextProvider>{children}</ReservationContextProvider>
-          </main>
-        </div>
+        <main className="max-w-7xl mx-auto w-full">
+          <ReservationProvider>{children}</ReservationProvider>
+        </main>
       </body>
     </html>
   );

@@ -1,14 +1,16 @@
 import Link from "next/link";
+import { auth } from "../_lib/auth";
 
-export default function Navigation({ isMobile, onClose }) {
+export default async function Navigation() {
+  const session = await auth();
+
   return (
-     <nav className={isMobile ? "text-2xl w-full" : "z-10 sm:text-xl text-base"}>
-       <ul className={isMobile ? "flex flex-col gap-6 items-center" : "flex flex-wrap sm:gap-16 gap-8 items-center"}>
+    <nav className="z-10 text-xl">
+      <ul className="flex gap-16 items-center">
         <li>
           <Link
             href="/cabins"
             className="hover:text-accent-400 transition-colors"
-            onClick={isMobile ? onClose : undefined}
           >
             Cabins
           </Link>
@@ -17,19 +19,32 @@ export default function Navigation({ isMobile, onClose }) {
           <Link
             href="/about"
             className="hover:text-accent-400 transition-colors"
-            onClick={isMobile ? onClose : undefined}
           >
             About
           </Link>
         </li>
         <li>
-          <Link
-            href="/account"
-            className="hover:text-accent-400 transition-colors"
-            onClick={isMobile ? onClose : undefined}
-          >
-            Guest area
-          </Link>
+          {session?.user?.image ? (
+            <Link
+              href="/account"
+              className="hover:text-accent-400 transition-colors flex items-center gap-4"
+            >
+              <img
+                className="h-8 rounded-full"
+                src={session.user.image}
+                alt={session.user.name}
+                referrerPolicy="no-referrer"
+              />
+              <span>Guest area</span>
+            </Link>
+          ) : (
+            <Link
+              href="/account"
+              className="hover:text-accent-400 transition-colors"
+            >
+              Guest area
+            </Link>
+          )}
         </li>
       </ul>
     </nav>

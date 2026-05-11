@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 @theme {
-  /* Primary palette */
   --color-primary-50: #e1e8ef;
   --color-primary-100: #d4dee7;
   --color-primary-200: #b7c7d7;
@@ -14,7 +13,6 @@
   --color-primary-900: #1b2631;
   --color-primary-950: #141c24;
 
-  /* Accent palette */
   --color-accent-50: #faf5f0;
   --color-accent-100: #f4ece1;
   --color-accent-200: #e8d6bf;
@@ -28,80 +26,95 @@
   --color-accent-950: #382814;
 }
 
-@layer components {
-  .spinner {
-    margin: 3.2rem auto 1.6rem;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    border-style: solid;
-    border-color: var(--color-primary-900);
-    border-right-color: var(--color-primary-200);
-    animation: rotate 1s infinite linear;
-  }
-
-  .spinner-mini {
-    margin: 0;
-    width: 20px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    border: 2px solid var(--color-primary-200);
-    border-right-color: transparent;
-    animation: rotate 1s infinite linear;
-  }
-
-  @keyframes rotate {
-    to {
-      transform: rotate(1turn);
-    }
-  }
-}
-
 /* For data picker */
-.rdp {
-  --rdp-cell-size: 32px;
-  --rdp-accent-color: #0000ff; /* Override accent color for selected dates to royal blue */
-  --rdp-background-color: var(--color-accent-600);
+.rdp-root {
+  --rdp-accent-color: var(--color-accent-500) !important;
+  --rdp-accent-background-color: var(--color-accent-600) !important;
+  --rdp-day_button-border-radius: 0px !important;
+  margin: 0 !important;
+}
+
+.rdp-months {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 1rem !important;
+  justify-content: center !important;
+}
+
+.rdp-day_button {
+  width: 2.25rem !important;
+  height: 2.25rem !important;
+  color: var(--color-primary-200) !important;
+}
+
+.rdp-day_button:hover:not([disabled]) {
+  background-color: var(--color-primary-800) !important;
+  color: var(--color-primary-50) !important;
+}
+
+.rdp-selected .rdp-day_button {
+  background-color: var(--color-accent-500) !important;
+  color: var(--color-primary-900) !important;
+  font-weight: bold !important;
+}
+
+.rdp-range_middle .rdp-day_button {
+  background-color: var(--color-primary-800) !important;
+  color: var(--color-primary-50) !important;
+}
+
+.rdp-range_start .rdp-day_button,
+.rdp-range_end .rdp-day_button {
+  background-color: var(--color-accent-500) !important;
+  color: var(--color-primary-900) !important;
+}
+
+.rdp-today {
+  color: var(--color-accent-500) !important;
+  font-weight: bold !important;
+}
+
+.rdp-chevron {
+  fill: var(--color-accent-500) !important;
+}
+
+.rdp-weekday {
+  color: var(--color-primary-400) !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  font-size: 0.8rem !important;
+}
+
+.rdp-caption_label {
+  color: var(--color-primary-100) !important;
+  font-weight: bold !important;
+  font-size: 1.1rem !important;
+}
+
+.spinner {
+  margin: 3.2rem auto 1.6rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 8px solid #1b2631;
+  border-right-color: #b7c7d7;
+  animation: rotate 1s infinite linear;
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.spinner-mini {
   margin: 0;
-}
-
-.rdp-day_selected,
-.rdp-day_selected:hover,
-.rdp-day_selected:focus,
-.rdp-day[aria-selected="true"] {
-  background: #0000ff !important; /* Royal blue */
-  background-color: #0000ff !important; /* Ensure background-color is also set */
-  color: var(--color-primary-50) !important; /* White text for contrast */
-}
-
-.rdp-day_selected:not(.rdp-day_outside) {
-  background: #0000ff !important; /* Royal blue */
-  background-color: #0000ff !important; /* Ensure background-color is also set */
-  color: var(--color-primary-50) !important; /* White text for contrast */
-}
-
-.rdp-day_selected .rdp-day_selection_span {
-  background: #0000ff !important; /* Royal blue */
-  background-color: #0000ff !important; /* Ensure background-color is also set */
-  color: var(--color-primary-50) !important; /* White text for contrast */
-}
-
-.rdp-day_range_start,
-.rdp-day_range_end {
-  border-radius: 50% !important;
-}
-
-.rdp-dropdown {
-  background-color: var(--color-primary-500) !important; /* Royal blue */
-  color: var(--color-primary-50) !important; /* Light text for contrast */
-}
-
-.rdp-dropdown_month,
-.rdp-dropdown_year {
-  background-color: var(--color-primary-500) !important; /* Royal blue */
-  color: var(--color-primary-50) !important; /* Light text for contrast */
-}
-
-.rdp-dropdown_month svg,
-.rdp-dropdown_year svg {
-  color: var(--color-primary-50) !important; /* Light arrow for contrast */
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 3px solid #c69963; /* accent-500 color */
+  border-right-color: transparent;
+  animation: rotate 1s infinite linear;
+  display: block;
 }

@@ -1,60 +1,58 @@
-"use client";
-import { isWithinInterval } from "date-fns";
-import { DayPicker } from "react-day-picker";
-import "react-day-picker/dist/style.css";
-import { useReservationContext } from "./ReservationContext";
+'use client';
+
+import { differenceInDays, isPast, isSameDay, isWithinInterval } from 'date-fns';
+import { useState } from 'react';
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
+import { useReservation } from './ReservationContext';
 
 function isAlreadyBooked(range, datesArr) {
   return (
     range.from &&
     range.to &&
     datesArr.some((date) =>
-      isWithinInterval(date, { start: range.from, end: range.to })
+      isWithinInterval(new Date(date), { start: range.from, end: range.to }),
     )
   );
 }
 
-function DateSelector({ cabin, settings, bookedDates }) {
-  const { range, setRange, resetRange } = useReservationContext();
-  const modifiers = {
-    start: range.from,
-    end: range.to,
-  };
+function DateSelector({ settings, cabin, bookedDates }) {
+  const { range, setRange, resetRange } = useReservation();
 
-  const modifiersClassNames = {
-    start: "bg-green-500 text-white rounded-l-full",
-    end: "bg-red-500 text-white rounded-r-full",
-    selected: "bg-blue-300 text-black", // middle days
-  };
+  const { regularPrice, discount } = cabin;
+  const numOfNights =
+    range?.from && range?.to ? differenceInDays(range.to, range.from) : 0;
+  const cabinPrice = numOfNights * (regularPrice - discount);
 
-  // CHANGE
-  const regularPrice = 23;
-  const discount = 23;
-  const numNights = 23;
-  const cabinPrice = 23;
-
-  // SETTINGS
-  const { minBookingLength, maxBookingLength } = cabin;
+  // settings,
+  const { minBookingLength, maxBookingLength } = settings;
 
   return (
-    <div className="justify-between">
+    <div className="flex flex-col justify-between">
       <DayPicker
         className="pt-12 place-self-center"
         mode="range"
-        onSelect={(range) => setRange(range)}
-        selected={range}
-        min={minBookingLength}
+        onSelect={(range) => {
+          if (!range) {
+            resetRange();
+          } else if (isAlreadyBooked(range, bookedDates)) {
+            resetRange();
+          } else {
+            setRange(range);
+          }
+        }}
+        selected={range?.from || range?.to ? range : undefined}
+        min={minBookingLength + 1}
         max={maxBookingLength}
-        modifiers={modifiers}
-        modifiersClassNames={modifiersClassNames}
-        startMonth={new Date()}
-        endMonth={new Date(new Date().getFullYear() + 5, 11)}
-        hidden={[
-          { before: new Date() },
-          { after: new Date(new Date().getFullYear() + 5, 11, 31) },
-        ]}
+        fromMonth={new Date()}
+        fromDate={new Date()}
+        toYear={new Date().getFullYear() + 5}
         captionLayout="dropdown"
         numberOfMonths={2}
+        disabled={(curDate) =>
+          isPast(curDate) ||
+          bookedDates.some((date) => isSameDay(new Date(date), curDate))
+        }
       />
 
       <div className="flex items-center justify-between px-8 bg-accent-500 text-primary-800 h-[72px]">
@@ -72,13 +70,13 @@ function DateSelector({ cabin, settings, bookedDates }) {
             )}
             <span className="">/night</span>
           </p>
-          {numNights ? (
+          {numOfNights ? (
             <>
               <p className="bg-accent-600 px-3 py-2 text-2xl">
-                <span>&times;</span> <span>{numNights}</span>
+                <span>&times;</span> <span>{numOfNights}</span>
               </p>
               <p>
-                <span className="text-lg font-bold uppercase">Total</span>{" "}
+                <span className="text-lg font-bold uppercase">Total</span>{' '}
                 <span className="text-2xl font-semibold">${cabinPrice}</span>
               </p>
             </>
@@ -87,8 +85,8 @@ function DateSelector({ cabin, settings, bookedDates }) {
 
         {range.from || range.to ? (
           <button
-            className="border border-primary-800 py-2 px-4 cursor-pointer text-sm font-semibold"
-            onClick={() => resetRange()}
+            className="border border-primary-800 py-2 px-4 text-sm font-semibold"
+            onClick={resetRange}
           >
             Clear
           </button>
